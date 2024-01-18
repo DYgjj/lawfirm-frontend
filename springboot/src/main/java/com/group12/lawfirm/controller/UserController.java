@@ -25,6 +25,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody User user){
+        user.setPassword(MD5Util.MD5(user.getPassword()));
         User loginUser = userService.login(user);
         return Result.success(loginUser);
     }
