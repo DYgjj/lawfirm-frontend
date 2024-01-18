@@ -52,8 +52,8 @@ public class UserController {
 
     @PostMapping
     public Result save(@RequestBody User user) {
+        user.setPassword(MD5Util.MD5(user.getPassword()));
         if (user.getId() == null) {
-            user.setPassword(MD5Util.MD5(user.getPassword()));
             userService.add(user);
         } else {
             userService.update(user);
@@ -73,6 +73,12 @@ public class UserController {
         for (User user : list) {
             userService.delete(user.getId());
         }
+        return Result.success();
+    }
+
+    @PutMapping("/changePassword")
+    public Result profile(@RequestBody User user) {
+        userService.changePassword(user);
         return Result.success();
     }
 

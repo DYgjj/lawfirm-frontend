@@ -3,6 +3,7 @@ package com.group12.lawfirm.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.group12.lawfirm.common.JwtTokenUtils;
+import com.group12.lawfirm.common.MD5Util;
 import com.group12.lawfirm.dao.UserDao;
 import com.group12.lawfirm.entity.Params;
 import com.group12.lawfirm.entity.User;
@@ -60,13 +61,7 @@ public class UserService {
     }
 
     public void update(User user) {
-        if (Objects.equals(user.getOldPassword(), user.getPassword())) {
-            user.setPassword(user.getNewPassword());
-            userDao.updateByPrimaryKeySelective(user);
-        } else {
-            throw new CustomException("Old password is incorrect!");
-        }
-
+        userDao.updateByPrimaryKeySelective(user);
     }
 
     public void delete(Integer id) {
@@ -114,6 +109,15 @@ public class UserService {
             throw new CustomException("Validation error");
         }
 
-        dbUser.setPassword(dbUser.getAccount() + "123");
+        dbUser.setPassword(MD5Util.MD5(dbUser.getAccount() + "123"));
+    }
+
+    public void changePassword(User user) {
+        if (Objects.equals(user.getOldPassword(), user.getPassword())) {
+            user.setPassword(MD5Util.MD5(user.getNewPassword()));
+            userDao.updateByPrimaryKeySelective(user);
+        } else {
+            throw new CustomException("Old password is incorrect!");
+        }
     }
 }

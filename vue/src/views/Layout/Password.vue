@@ -58,7 +58,7 @@ export default {
       this.$refs.formRef.validate((valid) => {
         if (valid) {
           if (this.form.password === this.form.oldPassword) {
-            request.post("/user",this.form).then(res => {
+            request.put("/user/changePassword",this.form).then(res => {
                 if (res.code === '0'){
                   this.$message({
                     message: 'Operate Successfully',
