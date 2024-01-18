@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "admin")
-public class Admin {
+@Table(name = "client")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,17 @@ public class Admin {
     private String account;
     @Column(name = "password")
     private String password;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "age")
+    private Integer age;
+    @Column(name = "phone")
+    private String phone;
     @Column(name = "email")
     private String email;
+    @Column(name = "role")
+    private String role;
+
+    @Transient
+    private String token;
 }
