@@ -112,7 +112,7 @@ export default {
         data: this.forgetUserForm
       }).then(res => {
         if (res.code === '0') {
-          this.$message.success('Reset successfully')
+          this.$message.success('The new password is your account + 123, please change you password as soon as possible!')
           this.forgetPassDialogVis = false
         } else {
           this.$message.error(res.msg)

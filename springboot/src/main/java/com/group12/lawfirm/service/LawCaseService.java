@@ -60,9 +60,6 @@ public class LawCaseService {
         if(lawCase.getCname() == null || "".equals(lawCase.getCname())){
             throw new CustomException("Client name cannot be empty");
         }
-        if(lawCase.getLname() == null || "".equals(lawCase.getLname())){
-            throw new CustomException("Lawyer name cannot be empty");
-        }
         if(lawCase.getStatus() == null || "".equals(lawCase.getStatus())){
             throw new CustomException("Case status cannot be empty");
         }

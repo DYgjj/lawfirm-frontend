@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping("/register")
     public Result register(@RequestBody User user){
         user.setPassword(MD5Util.MD5(user.getPassword()));
-
+        user.setRole("ROLE_CLIENT");
         userService.add(user);
         return Result.success();
     }

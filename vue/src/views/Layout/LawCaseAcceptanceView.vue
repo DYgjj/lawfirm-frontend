@@ -175,7 +175,6 @@ export default {
       isShow: true,
       params: {
         cname: "",
-        lname: "",
         content: "",
         title: "",
         pageNum: 1,
@@ -192,15 +191,18 @@ export default {
       dialogFormStatus: false,
       form: {},
       multipleSelection: [],
+      lawyerObjs: [],
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
   },
   //页面加载的时候，做一些事情在created里面
   created() {
     this.findBySearch();
+    this.findLawyer();
   },
   //定义一些页面上空间触发事件调用的方法
   methods:{
+
     findBySearch(){
       request.get("/lawCase/searchAcceptance", {
         params: this.params

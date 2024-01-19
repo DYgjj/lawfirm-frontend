@@ -37,4 +37,8 @@ public class LawyerService {
     public void delete(Integer id) {
         lawyerDao.deleteByPrimaryKey(id);
     }
+
+    public List<Lawyer> findAll() {
+        return lawyerDao.selectAll();
+    }
 }

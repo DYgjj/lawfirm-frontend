@@ -20,6 +20,11 @@ public class LawyerController {
     @Resource
     private LawyerService lawyerService;
 
+    @GetMapping
+    public Result findAll() {
+        return Result.success(lawyerService.findAll());
+    }
+
     @GetMapping("/search")
     public Result findBySearch(Params params){
         PageInfo<Lawyer> info = lawyerService.findBySearch(params);

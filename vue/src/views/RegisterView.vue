@@ -26,19 +26,28 @@
             <el-input  v-model="user.confirmPass" prefix-icon="el-icon-lock" size="medium" show-password placeholder="Please confirm your password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="user.role" placeholder="Please select" style="width: 80%">
-              <el-option label="Staff" value="ROLE_STAFF"></el-option>
-              <el-option label="Client" value="ROLE_CLIENT"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
             <el-button style="width: 100%;" type="primary" @click="register()">Register</el-button>
           </el-form-item>
           <div style="flex: 1; text-align: center">Already have an account?  <span style="color: dodgerblue; cursor: pointer; " @click="$router.push('/login')">Login now </span></div>
-          <div style="flex: 1; text-align: center; margin-top: 5px"><span style="color: dodgerblue; cursor: pointer">Forgot Password?</span></div>
+          <div style="flex: 1; text-align: center; margin-top: 5px"><span style="color: dodgerblue; cursor: pointer" @click="handleForgetPass">Forgot Password?</span></div>
         </el-form>
       </div>
     </div>
+
+    <el-dialog title="Forget password" :visible.sync="forgetPassDialogVis" width="30%">
+      <el-form :model="forgetUserForm" label-width="120px" style="padding-right: 20px">
+        <el-form-item label="Account">
+          <el-input v-model="forgetUserForm.account" autocomplete="off" placeholder="Please input account"></el-input>
+        </el-form-item>
+        <el-form-item label="Phone number">
+          <el-input v-model="forgetUserForm.phone" autocomplete="off" placeholder="Please input phone number"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="forgetPassDialogVis = false">Cancel</el-button>
+        <el-button type="primary" @click="resetPassword">Confirm</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -59,6 +68,8 @@ export default {
       }
     };
     return {
+      forgetUserForm: {},
+      forgetPassDialogVis: false,
       user: {
         name: '',
         account: '',
@@ -87,9 +98,6 @@ export default {
         confirmPass: [
           { validator: validatePassword, trigger: 'blur' },
         ],
-        role: [
-          { required: true, message: 'Please select a role', trigger: 'blur' },
-        ],
       }
     };
 
@@ -100,6 +108,28 @@ export default {
   },
   //定义一些页面上空间触发事件调用的方法
   methods:{
+    handleForgetPass() { //初始化表单
+      this.forgetUserForm = {}
+      this.forgetPassDialogVis = true
+    },
+
+    resetPassword() {
+      request({
+        url: "/user/password",
+        headers: {
+          isToken: false
+        },
+        method: "put",
+        data: this.forgetUserForm
+      }).then(res => {
+        if (res.code === '0') {
+          this.$message.success('The new password is your account + 123, please change you password as soon as possible!')
+          this.forgetPassDialogVis = false
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
+    },
 
     register() {
       this.$refs['registerRef'].validate((valid) => {

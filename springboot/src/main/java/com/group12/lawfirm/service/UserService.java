@@ -49,9 +49,6 @@ public class UserService {
         if(user.getEmail() == null || "".equals(user.getEmail())){
             throw new CustomException("Email cannot be empty");
         }
-        if(user.getRole() == null || "".equals(user.getRole())){
-            throw new CustomException("Please select a role");
-        }
 
         User userAccount = userDao.findByAccount(user.getAccount());
         if(userAccount != null) {

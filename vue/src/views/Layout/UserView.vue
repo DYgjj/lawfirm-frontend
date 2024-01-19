@@ -14,7 +14,7 @@
 
     <div class="about">
 
-      <el-table :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange">
+      <el-table :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange" >
         <el-table-column prop="name" label="Name"></el-table-column>
         <el-table-column prop="account" label="Account"></el-table-column>
         <el-table-column prop="email" label="Email"></el-table-column>
@@ -52,6 +52,9 @@
           </el-form-item>
           <el-form-item label="Account" label-width="30%" >
             <el-input v-model="form.account" autocomplete="off" style="width: 90%"></el-input>
+          </el-form-item>
+          <el-form-item label="password" label-width="30%" >
+            <el-input v-model="form.password" autocomplete="off" style="width: 90%"></el-input>
           </el-form-item>
           <el-form-item label="Email" label-width="30%" >
             <el-input v-model="form.email" autocomplete="off" style="width: 90%"></el-input>
@@ -101,6 +104,7 @@ export default {
       form: {
 
       },
+      radio: '1',
       multipleSelection: [],
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
