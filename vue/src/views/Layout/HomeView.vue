@@ -43,15 +43,37 @@ import request from "@/utils/request";
 
 export default {
   name: 'HomeView',
+
   data() {
     return {
+      items: [
+        { name: 'John', age: 25 },
+        { name: 'Alice', age: 30 },
+        { name: 'Bob', age: 22 }
+        // 其他数据...
+      ],
+      tableData: [],
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
+  },
+  created() {
+    this.findBySearch();
   },
   mounted() {
     // request.get('/user').then(res => {
     //   this.users = res.data;
     // });
+  },
+  methods: {
+    findBySearch(){
+      request.get("/lawyer").then(res => {
+        if (res.code === '0') {
+          this.tableData = res.data.list
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
+    },
   }
 
 }

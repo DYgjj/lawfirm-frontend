@@ -5,8 +5,6 @@
       <el-select v-model="params.expertise" style="width: 200px; margin-left: 5px" placeholder="Please select expertise">
         <el-option label="Civil Case" value="Civil"></el-option>
         <el-option label="Criminal Case" value="Criminal"></el-option>
-        <el-option label="Administrative Case" value="Administrative Case"></el-option>
-        <el-option label="Economic Case" value="Economic Case"></el-option>
       </el-select>
       <el-button type="warning" style="margin: 10px; width: 70px" @click="findBySearch()">search</el-button>
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
@@ -28,7 +26,15 @@
         <el-table-column prop="phone" label="Phone"></el-table-column>
         <el-table-column prop="email" label="Email"></el-table-column>
         <el-table-column prop="expertise" label="Expertise"></el-table-column>
-        <el-table-column prop="description" label="Description"></el-table-column>
+
+        <el-table-column prop="description" label="Description">
+          <template slot-scope="scope" type="primary">
+            <el-button type = "success" @click="viewEditor(scope.row.description)">
+              Detail
+            </el-button>
+          </template>
+        </el-table-column>
+
         <el-table-column prop="photo" label="Photo">
           <template v-slot="scope">
             <el-image
@@ -90,7 +96,7 @@
             <el-input v-model="form.description" autocomplete="off" style="width: 90%"></el-input>
           </el-form-item>
           <el-form-item label="Photo" label-width="16%" >
-            <el-upload action="http://localhost:8080/files/upload" :on-success="successUpload">
+            <el-upload action="http://localhost:8080/files/upload" :on-success="successUpload" ref="lawyerPhoto">
               <el-button size="small" type="primary">Upload</el-button>
               <div slot="tip" class="el-upload__tip">Please upload jpg/png files with a maximum size of 500kb</div>
             </el-upload>
@@ -100,6 +106,9 @@
           <el-button @click="dialogFormVisible = false">Cancel</el-button>
           <el-button type="primary" @click="submit()">Confirm</el-button>
         </div>
+      </el-dialog>
+      <el-dialog title = "case detail" :visible.sync = "editorVisible" width = "50%">
+        <div v-html="this.form.description" class = "w-e-text"></div>
       </el-dialog>
     </div>
   </div>
@@ -130,6 +139,7 @@ export default {
       },
       radio: '1',
       multipleSelection: [],
+      editorVisible :false,
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
   },
@@ -139,6 +149,10 @@ export default {
   },
   //定义一些页面上空间触发事件调用的方法
   methods:{
+    viewEditor(data){
+      this.form.description = data;
+      this.editorVisible = true;
+    },
     findBySearch(){
       request.get("/lawyer/search", {
         params: this.params
@@ -182,6 +196,7 @@ export default {
           });
           this.dialogFormVisible = false;
           this.findBySearch()
+          this.$refs.lawyerPhoto.clearFiles();
         }else {
           this.$message.error(res.msg);
         }

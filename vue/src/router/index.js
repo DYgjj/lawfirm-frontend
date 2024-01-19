@@ -73,61 +73,61 @@ const routes = [
         component: HomeView
       },
       {
-        path: 'user',
+        path: '/user',
         name: 'user',
         meta: { name: 'Account Information'},
         component: UserView
       },
       {
-        path: 'lawyer',
+        path: '/lawyer',
         name: 'lawyer',
         meta: { name: 'Lawyer'},
         component: LawyerView
       },
       {
-        path: 'client',
+        path: '/client',
         name: 'client',
         meta: { name: 'Client'},
         component: ClientView
       },
       {
-        path: 'lawCase',
+        path: '/lawCase',
         name: 'lawCase',
         meta: { name: 'Rejected Case'},
         component: LawCaseView
       },
       {
-        path: 'lawCaseAcceptance',
+        path: '/lawCaseAcceptance',
         name: 'lawCaseAcceptance',
         meta: { name: 'Ongoing Case'},
         component: LawCaseAcceptanceView
       },
       {
-        path: 'lawCaseCompletion',
+        path: '/lawCaseCompletion',
         name: 'lawCaseCompletion',
         meta: { name: 'Closed Case'},
         component: LawCaseCompletionView
       },
       {
-        path: 'lawCaseRefusal',
+        path: '/lawCaseRefusal',
         name: 'lawCaseRefusal',
         meta: { name: 'Audit Case'},
         component: LawCaseRefusalView
       },
       {
-        path: 'profile',
+        path: '/profile',
         name: 'profile',
         meta: { name: 'Profile'},
         component: profile
       },
       {
-        path: 'password',
+        path: '/password',
         name: 'password',
         meta: { name: 'Change password'},
         component: password
       },
       {
-        path: 'logs',
+        path: '/logs',
         name: 'logs',
         meta: { name: 'Logs'},
         component: LogsView

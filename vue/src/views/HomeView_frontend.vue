@@ -20,10 +20,9 @@
               <el-menu-item index="/about_frontend">About Us</el-menu-item>
               <el-menu-item index="/calendar_frontend">Calendar</el-menu-item>
               <el-submenu index="2">
-
                 <template slot="title">login</template>
-              <el-menu-item style="color: #c97f0a" index="/login">Login</el-menu-item>
-                <el-menu-item index="/layout">Console</el-menu-item>
+                <el-menu-item style="color: #c97f0a" index="/login">Log in</el-menu-item>
+                <el-menu-item style="color: #c97f0a" index="/layout">Console</el-menu-item>
               </el-submenu>
             </el-menu>
           </div>
@@ -36,55 +35,7 @@
         </el-main>
       </container>
 
-      <container style=" background-color: transparent; text-align: left;line-height: 60px;position: fixed;left: 0;bottom: 0;width: 100%;height: 50px">
-        <el-footer>
-          <el-button type="primary" round  @click="dialogFormVisible = true"  style="position: relative; bottom: 10px">Contact Us Now</el-button>
-          <el-dialog title="Fill Out Your" :visible.sync="dialogFormVisible">
-            <el-form :model="form">
-              <el-form-item label="Name" :label-width="formLabelWidth">
-                <el-input
-                    type="textarea"
-                    autosize
-                    autocomplete="off"
-                    placeholder="Please enter your name..."
-                    v-model="form.name">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="Case Type" :label-width="formLabelWidth">
-                <el-select v-model="form.caseType" placeholder="Please choose case type">
-                  <el-option label="Criminal Matter" value="Criminal Matter"></el-option>
-                  <el-option label="Civil Matter" value="Civil Matter"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="Lawyer" :label-width="formLabelWidth">
-                <el-select v-model="form.lawyer" placeholder="Please choose your lawyer">
-                  <el-option label="Attorney Emily Davis" value="Criminal Matter"></el-option>
-                  <el-option label="Michael Chang" value="Civil Matter"></el-option>
-                  <el-option label="Jessica Patel " value="Civil Matter"></el-option>
-                  <el-option label="Attorney Brian Mitchell " value="Civil Matter"></el-option>
-                  <el-option label="Sophia Rodriguez" value="Civil Matter"></el-option>
-                  <el-option label="Attorney Emily Davis" value="Civil Matter"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="Case Detail" :label-width="formLabelWidth">
-                <el-input
-                    type="textarea"
-                    autocomplete="off"
-                    :autosize="{ minRows: 4, maxRows: 10}"
-                    placeholder="Please enter the case detail..."
-                    v-model="form.caseDetail">
 
-                </el-input>
-              </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">Cancel</el-button>
-              <el-button type="primary" @click="dialogFormVisible = false">Submit</el-button>
-            </div>
-          </el-dialog>
-
-        </el-footer>
-      </container>
 
     </el-container>
   </div>

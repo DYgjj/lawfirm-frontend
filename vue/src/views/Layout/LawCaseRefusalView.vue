@@ -242,7 +242,8 @@ export default {
       this.findBySearch();
     },
     add() {
-      initWangEditor("")
+      initWangEditor("");
+      this.from = {};
       this.dialogFormVisible = true;
     },
     submit() {
@@ -254,6 +255,9 @@ export default {
             type: 'success'
           });
           this.dialogFormFeedback = false;
+          this.dialogFormStatus = false;
+          this.dialogFormVisible = false,
+              this.editorVisible = false,
           this.findBySearch()
         }else {
           this.$message.error(res.msg);
@@ -269,6 +273,8 @@ export default {
           });
           this.dialogFormFeedback = false;
           this.dialogFormStatus = false;
+          this.dialogFormVisible = false,
+              this.editorVisible = false,
           this.findBySearch()
         }else {
           this.$message.error(res.msg);
