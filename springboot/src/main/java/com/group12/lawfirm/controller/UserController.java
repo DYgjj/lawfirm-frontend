@@ -3,9 +3,7 @@ package com.group12.lawfirm.controller;
 import javax.validation.Valid;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
-import com.group12.lawfirm.common.MD5Util;
-import com.group12.lawfirm.common.RegexUtils;
-import com.group12.lawfirm.common.Result;
+import com.group12.lawfirm.common.*;
 import com.group12.lawfirm.entity.Params;
 import com.group12.lawfirm.entity.User;
 import com.group12.lawfirm.exception.CustomException;
@@ -23,6 +21,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @AutoLogs(operation = "User", type = LogType.LOGIN)
     @PostMapping("/login")
     public Result login(@RequestBody User user){
         user.setPassword(MD5Util.MD5(user.getPassword()));
@@ -30,6 +29,7 @@ public class UserController {
         return Result.success(loginUser);
     }
 
+    @AutoLogs(operation = "User", type = LogType.REGISTER)
     @PostMapping("/register")
     public Result register(@RequestBody User user){
         user.setPassword(MD5Util.MD5(user.getPassword()));
@@ -50,6 +50,7 @@ public class UserController {
         return Result.success(info);
     }
 
+    @AutoLogs(operation = "User", type = LogType.ADD_OR_UPDATE)
     @PostMapping
     public Result save(@RequestBody User user) {
         user.setPassword(MD5Util.MD5(user.getPassword()));
@@ -61,12 +62,14 @@ public class UserController {
         return Result.success();
     }
 
+    @AutoLogs(operation = "User", type = LogType.DELETE)
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         userService.delete(id);
         return Result.success();
     }
 
+    @AutoLogs(operation = "User", type = LogType.BATCH_DELETE)
     @PutMapping("/delBatch")
     public Result delBatch(@RequestBody List<User> list) {
 
@@ -76,12 +79,14 @@ public class UserController {
         return Result.success();
     }
 
+    @AutoLogs(operation = "User", type = LogType.UPDATE_PASSWORD)
     @PutMapping("/changePassword")
     public Result profile(@RequestBody User user) {
         userService.changePassword(user);
         return Result.success();
     }
 
+    @AutoLogs(operation = "User", type = LogType.FORGET_PASSWORD)
     @PutMapping("/password")
     public Result password(@RequestBody User user) {
         userService.resetPassword(user);

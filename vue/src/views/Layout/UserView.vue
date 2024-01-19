@@ -17,7 +17,6 @@
       <el-table :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column prop="name" label="Name"></el-table-column>
         <el-table-column prop="account" label="Account"></el-table-column>
-        <el-table-column prop="password" label="Password"></el-table-column>
         <el-table-column prop="email" label="Email"></el-table-column>
         <el-table-column prop="phone" label="Phone"></el-table-column>
         <el-table-column prop="description" label="Description"></el-table-column>
@@ -53,9 +52,6 @@
           </el-form-item>
           <el-form-item label="Account" label-width="30%" >
             <el-input v-model="form.account" autocomplete="off" style="width: 90%"></el-input>
-          </el-form-item>
-          <el-form-item label="Password" label-width="30%" >
-            <el-input v-model="form.password" autocomplete="off" style="width: 90%"></el-input>
           </el-form-item>
           <el-form-item label="Email" label-width="30%" >
             <el-input v-model="form.email" autocomplete="off" style="width: 90%"></el-input>

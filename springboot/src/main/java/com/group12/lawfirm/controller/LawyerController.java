@@ -1,6 +1,8 @@
 package com.group12.lawfirm.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.group12.lawfirm.common.AutoLogs;
+import com.group12.lawfirm.common.LogType;
 import com.group12.lawfirm.common.Result;
 import com.group12.lawfirm.entity.Lawyer;
 import com.group12.lawfirm.entity.Params;
@@ -24,6 +26,7 @@ public class LawyerController {
         return Result.success(info);
     }
 
+    @AutoLogs(operation = "Lawyer", type = LogType.ADD_OR_UPDATE)
     @PostMapping
     public Result save(@RequestBody Lawyer lawyer) {
         if (lawyer.getId() == null) {
@@ -34,12 +37,14 @@ public class LawyerController {
         return Result.success();
     }
 
+    @AutoLogs(operation = "Lawyer", type = LogType.DELETE)
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         lawyerService.delete(id);
         return Result.success();
     }
 
+    @AutoLogs(operation = "Lawyer", type = LogType.BATCH_DELETE)
     @PutMapping("/delBatch")
     public Result delBatch(@RequestBody List<Lawyer> list) {
 

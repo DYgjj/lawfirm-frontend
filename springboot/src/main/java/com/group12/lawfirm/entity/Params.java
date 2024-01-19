@@ -13,4 +13,6 @@ public class Params {
     private Integer pageNum;
     private Integer pageSize;
     private String expertise;
+    private String operation;
+    private String user;
 }

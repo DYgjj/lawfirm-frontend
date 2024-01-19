@@ -22,12 +22,10 @@
             <i class="el-icon-menu"></i>
             <span slot="title">Dashboard</span>
           </el-menu-item>
-
           <el-menu-item index="/user" v-if="user.role === 'ROLE_ADMIN'">
             <i class="el-icon-user-solid"></i>
             <span slot="title">Account Information</span>
           </el-menu-item>
-
           <el-submenu index="2" >
             <template slot="title">
               <i class="el-icon-more"></i>
@@ -53,6 +51,10 @@
             </el-menu-item-group>
           </el-submenu>
 
+          <el-menu-item index="/logs">
+            <i class="el-icon-s-order"></i>
+            <span slot="title">Logs</span>
+          </el-menu-item>
 
         </el-menu>
       </el-aside>

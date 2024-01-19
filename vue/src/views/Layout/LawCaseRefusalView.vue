@@ -32,8 +32,8 @@ CaseRejectedView.vue<template>
 
         <el-table-column prop="feedback" label="Feedback">
           <template v-slot="scope">
-            <el-button type= "primary" style="width: 65px" @click="editFeedback(scope.row)">Edit</el-button>
-            <el-button type= "success" @click="viewEditor(scope.row.feedback)">
+            <el-button type= "primary" style="width: 65px; margin-left: 10px" @click="editFeedback(scope.row)">Edit</el-button>
+            <el-button type= "success" style="width: 65px" @click="viewEditor(scope.row.feedback)">
               Detail
             </el-button>
           </template>
@@ -52,7 +52,6 @@ CaseRejectedView.vue<template>
             <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)">
               <el-button slot="reference" type="danger" style="width: 65px; margin-left: 10px">Delete</el-button>
             </el-popconfirm>
-            <el-button type="info" style="width: 65px; margin-left: 10px" @click="caseEvent()">Event</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -171,6 +170,7 @@ function initWangEditor(content) {	setTimeout(() => {
 }, 0)
 }
 export default {
+  name: "Audit Case",
   data() {
     return {
       isShow: true,
@@ -304,9 +304,7 @@ export default {
         }
       })
     },
-    caseEvent() {
 
-    },
     delBatch() {
       if (this.multipleSelection.length ===0){
         this.$message.warning("Please select the option you want to delete!")

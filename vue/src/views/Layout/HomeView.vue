@@ -6,9 +6,9 @@
 
     <div style="display: flex">
       <el-card style="width: 100%">
-        <div slot="header" class="clearfix">
-          <span>Welcome to G12 law firm management system</span>
-        </div>
+<!--        <div slot="header" class="clearfix">-->
+<!--          <span>Welcome to G12 law firm management system</span>-->
+<!--        </div>-->
         <div>
           <div style="margin-top: 20px">
             <div style="margin: 10px 0"><strong>主题色</strong></div>

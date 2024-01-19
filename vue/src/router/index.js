@@ -14,6 +14,7 @@ import password from "@/views/Layout/Password";
 import LawCaseAcceptanceView from "@/views/Layout/LawCaseAcceptanceView";
 import LawCaseCompletionView from "@/views/Layout/LawCaseCompletionView";
 import LawCaseRefusalView from "@/views/Layout/LawCaseRefusalView";
+import LogsView from "@/views/Layout/LogsView";
 
 // 解决导航栏或者底部导航tabBar中的vue-router在3.0版本以上频繁点击菜单报错的问题。
 const originalPush = VueRouter.prototype.push
@@ -69,25 +70,25 @@ const routes = [
       {
         path: 'lawCase',
         name: 'lawCase',
-        meta: { name: 'Law Case'},
+        meta: { name: 'Rejected Case'},
         component: LawCaseView
       },
       {
         path: 'lawCaseAcceptance',
         name: 'lawCaseAcceptance',
-        meta: { name: 'Law Case Acceptance'},
+        meta: { name: 'Ongoing Case'},
         component: LawCaseAcceptanceView
       },
       {
         path: 'lawCaseCompletion',
         name: 'lawCaseCompletion',
-        meta: { name: 'Law Case Completion'},
+        meta: { name: 'Closed Case'},
         component: LawCaseCompletionView
       },
       {
         path: 'lawCaseRefusal',
         name: 'lawCaseRefusal',
-        meta: { name: 'Law Case Refusal'},
+        meta: { name: 'Audit Case'},
         component: LawCaseRefusalView
       },
       {
@@ -101,6 +102,12 @@ const routes = [
         name: 'password',
         meta: { name: 'Change password'},
         component: password
+      },
+      {
+        path: 'logs',
+        name: 'logs',
+        meta: { name: 'Logs'},
+        component: LogsView
       },
     ]
   },

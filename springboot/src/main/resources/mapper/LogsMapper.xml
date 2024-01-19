@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group12.lawfirm.dao.LogsDao">
+
+    <select id="findBySearch" resultType="com.group12.lawfirm.entity.Logs">
+        select * from logs
+        <where>
+            <if test="params != null and params.operation != null and params.operation != ''">
+                and operation like concat('%', #{params.operation},'%')
+            </if>
+            <if test="params != null and params.user != null and params.user != ''">
+                and user like concat('%', #{params.user},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

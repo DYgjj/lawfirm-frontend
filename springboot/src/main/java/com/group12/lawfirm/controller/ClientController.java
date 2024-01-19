@@ -1,6 +1,8 @@
 package com.group12.lawfirm.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.group12.lawfirm.common.AutoLogs;
+import com.group12.lawfirm.common.LogType;
 import com.group12.lawfirm.common.Result;
 import com.group12.lawfirm.entity.*;
 import com.group12.lawfirm.service.ClientService;
@@ -17,18 +19,13 @@ public class ClientController {
     @Resource
     private ClientService clientService;
 
-    @PostMapping("/login")
-    public Result login(@RequestBody Client client){
-        Client loginUser = clientService.login(client);
-        return Result.success(loginUser);
-    }
-
     @GetMapping("/search")
     public Result findBySearch(Params params){
         PageInfo<Client> info = clientService.findBySearch(params);
         return Result.success(info);
     }
 
+    @AutoLogs(operation = "Client", type = LogType.ADD_OR_UPDATE)
     @PostMapping
     public Result save(@RequestBody Client client) {
         if (client.getId() == null) {
@@ -39,12 +36,14 @@ public class ClientController {
         return Result.success();
     }
 
+    @AutoLogs(operation = "Client", type = LogType.DELETE)
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         clientService.delete(id);
         return Result.success();
     }
 
+    @AutoLogs(operation = "Client", type = LogType.BATCH_DELETE)
     @PutMapping("/delBatch")
     public Result delBatch(@RequestBody List<Client> list) {
 
