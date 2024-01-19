@@ -16,6 +16,7 @@ import LawCaseCompletionView from "@/views/Layout/LawCaseCompletionView";
 import LawCaseRefusalView from "@/views/Layout/LawCaseRefusalView";
 import LogsView from "@/views/Layout/LogsView";
 
+
 // 解决导航栏或者底部导航tabBar中的vue-router在3.0版本以上频繁点击菜单报错的问题。
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
@@ -25,6 +26,28 @@ VueRouter.prototype.push = function push (location) {
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'home_frontend', component: () => import('../views/HomeView_frontend.vue'),
+    redirect: '/homepage_frontend',
+    children: [{
+      path: '/homepage_frontend',
+      name: 'homepage_frontend', component: () => import('../views/Homepage_frontend.vue')
+    },
+      {
+        path: '/team_frontend',
+        name: 'team_frontend', component: () => import('../views/Team_frontend.vue')
+      },
+      {
+        path: '/about_frontend',
+        name: 'about_frontend', component: () => import('../views/About_frontend.vue')
+      },
+      {
+        path: '/calendar_frontend',
+        name: 'calendar_frontend', component: () => import('../views/Calendar_frontend')
+      },
+    ],
+  },
   {
     path: '/login',
     name: 'login',
@@ -38,13 +61,13 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/',
+    path: '/layout',
     name: 'Layout',
     component: Layout,
     redirect: '/home',
     children: [
       {
-        path: 'home',
+        path: '/home',
         name: 'home',
         meta: { name: 'Dashboard'},
         component: HomeView
@@ -125,6 +148,10 @@ const routes = [
   },
 ]
 
+// const routes = [
+
+// ]
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -133,30 +160,38 @@ const router = new VueRouter({
 
 
 
-// //路由守卫
-// router.beforeEach((to ,from, next) => {
-//   const user = localStorage.getItem("user");
-//   if (!user && to.path !== '/login' && to.path !== '/register') {
-//     next("/login");
-//   } else {
-//     next();
-//   }
-//
-// })
-
-router.beforeEach((to, from, next) => {
-  // to 是到达的路由信息
-  // from 是开源的路由信息
-  // next 是帮助我们跳转路由的函数
-  let adminPaths = ['/user']
-  let user = JSON.parse(localStorage.getItem('user') || '{}')
-  if (user.role !== 'ROLE_ADMIN' && adminPaths.includes(to.path)) {
-    // 如果当前登录的用户不是管理员，然后当前的到达的路径是管理员才有权限访问的路径，那这个时候我就让用户去到一个没有权限的页面，不让他访问实际的页面
-    next('/403')
+//路由守卫
+router.beforeEach((to ,from, next) => {
+  const user = localStorage.getItem("user");
+  if (!user && to.path !== '/login' && to.path !== '/register' && to.path !== '/homepage_frontend'
+            && to.path !== '/team_frontend'&& to.path !== '/about_frontend' && to.path !== '/calendar_frontend') {
+    next("/homepage_frontend");
   } else {
-    next()
+    let adminPaths = ['/user']
+    let user = JSON.parse(localStorage.getItem('user') || '{}')
+    if (user.role !== 'ROLE_ADMIN' && adminPaths.includes(to.path)) {
+      // 如果当前登录的用户不是管理员，然后当前的到达的路径是管理员才有权限访问的路径，那这个时候我就让用户去到一个没有权限的页面，不让他访问实际的页面
+      next('/403')
+    } else {
+      next()
+    }
   }
+
 })
+
+// router.beforeEach((to, from, next) => {
+//   // to 是到达的路由信息
+//   // from 是开源的路由信息
+//   // next 是帮助我们跳转路由的函数
+//   let adminPaths = ['/user']
+//   let user = JSON.parse(localStorage.getItem('user') || '{}')
+//   if (user.role !== 'ROLE_ADMIN' && adminPaths.includes(to.path)) {
+//     // 如果当前登录的用户不是管理员，然后当前的到达的路径是管理员才有权限访问的路径，那这个时候我就让用户去到一个没有权限的页面，不让他访问实际的页面
+//     next('/403')
+//   } else {
+//     next()
+//   }
+// })
 
 
 export default router
