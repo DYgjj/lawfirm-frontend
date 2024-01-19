@@ -203,7 +203,7 @@ export default {
   //定义一些页面上空间触发事件调用的方法
   methods:{
     findBySearch(){
-      request.get("/lawCase/searchRefusal", {
+      request.get("/lawCase/searchAcceptance", {
         params: this.params
       }).then(res => {
         if (res.code === '0') {

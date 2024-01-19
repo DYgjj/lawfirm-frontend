@@ -23,6 +23,21 @@ public class LawCaseController {
         PageInfo<LawCase> info = lawCaseService.findBySearch(params);
         return Result.success(info);
     }
+    @GetMapping("/searchAcceptance")
+    public Result findBySearchAcceptance(Params params){
+        PageInfo<LawCase> info = lawCaseService.findBySearchAcceptance(params);
+        return Result.success(info);
+    }
+    @GetMapping("/searchCompletion")
+    public Result findBySearchCompletion(Params params){
+        PageInfo<LawCase> info = lawCaseService.findBySearchCompletion(params);
+        return Result.success(info);
+    }
+    @GetMapping("/searchRefusal")
+    public Result findBySearchRefusal(Params params){
+        PageInfo<LawCase> info = lawCaseService.findBySearchRefusal(params);
+        return Result.success(info);
+    }
 
     @PostMapping
     public Result save(@RequestBody LawCase lawCase) {

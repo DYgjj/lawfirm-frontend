@@ -26,6 +26,8 @@ public class LawyerService {
         return PageInfo.of(list);
     }
 
+
+
     public void add(Lawyer lawyer) { lawyerDao.insertSelective(lawyer); }
 
     public void update(Lawyer lawyer) {

@@ -25,6 +25,30 @@ public class LawCaseService {
         return PageInfo.of(list);
     }
 
+    public PageInfo<LawCase> findBySearchAcceptance(Params params) {
+        //开启分页
+        PageHelper.startPage(params.getPageNum(), params.getPageSize());
+        //接下来的查询会自动按照当前开启的分页设置来查询
+        List<LawCase> list = lawCaseDao.findBySearchAcceptance(params);
+        return PageInfo.of(list);
+    }
+
+    public PageInfo<LawCase> findBySearchCompletion(Params params) {
+        //开启分页
+        PageHelper.startPage(params.getPageNum(), params.getPageSize());
+        //接下来的查询会自动按照当前开启的分页设置来查询
+        List<LawCase> list = lawCaseDao.findBySearchCompletion(params);
+        return PageInfo.of(list);
+    }
+
+    public PageInfo<LawCase> findBySearchRefusal(Params params) {
+        //开启分页
+        PageHelper.startPage(params.getPageNum(), params.getPageSize());
+        //接下来的查询会自动按照当前开启的分页设置来查询
+        List<LawCase> list = lawCaseDao.findBySearchRefusal(params);
+        return PageInfo.of(list);
+    }
+
     public void add(LawCase lawCase) {
 
         if(lawCase.getTitle() == null || "".equals(lawCase.getTitle())){
@@ -39,14 +63,20 @@ public class LawCaseService {
         if(lawCase.getLname() == null || "".equals(lawCase.getLname())){
             throw new CustomException("Lawyer name cannot be empty");
         }
-        LawCase cname = lawCaseDao.findByCname(lawCase.getCname());
-        if(cname == null) {
-            throw new CustomException("Client name is not found. Please re-enter it!");
+        if(lawCase.getStatus() == null || "".equals(lawCase.getStatus())){
+            throw new CustomException("Case status cannot be empty");
         }
-        LawCase lname = lawCaseDao.findByLname(lawCase.getLname());
-        if(lname == null) {
-            throw new CustomException("Lawyer name is not found. Please re-enter it!");
+        if(lawCase.getType() == null || "".equals(lawCase.getType())){
+            throw new CustomException("Case type cannot be empty");
         }
+//        LawCase cname = lawCaseDao.findByCname(lawCase.getCname());
+//        if(cname == null) {
+//            throw new CustomException("Client name is not found. Please re-enter it!");
+//        }
+//        LawCase lname = lawCaseDao.findByLname(lawCase.getLname());
+//        if(lname == null) {
+//            throw new CustomException("Lawyer name is not found. Please re-enter it!");
+//        }
         lawCaseDao.insertSelective(lawCase);
     }
 

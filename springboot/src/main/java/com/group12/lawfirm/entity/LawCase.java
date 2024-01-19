@@ -24,4 +24,10 @@ public class LawCase {
     private String cname;
     @Column(name = "lname")
     private String lname;
+    @Column(name = "status")
+    private String status;
+    @Column(name = "feedback")
+    private String feedback;
+    @Column(name = "type")
+    private String type;
 }

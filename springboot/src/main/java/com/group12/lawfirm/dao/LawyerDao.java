@@ -12,4 +12,5 @@ import java.util.List;
 public interface LawyerDao extends Mapper<Lawyer> {
 
     List<Lawyer> findBySearch(@Param("params") Params params);
+
 }
