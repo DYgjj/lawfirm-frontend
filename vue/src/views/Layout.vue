@@ -10,6 +10,7 @@
             <el-dropdown-item @click.native="logout()">Log out</el-dropdown-item>
             <el-dropdown-item @click.native="profile()">Profile</el-dropdown-item>
             <el-dropdown-item @click.native="password()">Change password</el-dropdown-item>
+            <el-dropdown-item @click.native="home()">Main Page</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -86,13 +87,16 @@ export default {
     },
     logout(){
       localStorage.removeItem("user");
-      this.$router.push("/login");
+      this.$router.push("/homepage_frontend");
     },
     profile() {
       this.$router.push("/profile");
     },
     password() {
       this.$router.push("/password");
+    },
+    home() {
+      this.$router.push("/homepage_frontend");
     },
   }
 }
