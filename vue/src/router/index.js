@@ -165,7 +165,7 @@ router.beforeEach((to ,from, next) => {
   const user = localStorage.getItem("user");
   if (!user && to.path !== '/login' && to.path !== '/register' && to.path !== '/homepage_frontend'
             && to.path !== '/team_frontend'&& to.path !== '/about_frontend' && to.path !== '/calendar_frontend') {
-    next("/homepage_frontend");
+    next("/login");
   } else {
     let adminPaths = ['/user']
     let user = JSON.parse(localStorage.getItem('user') || '{}')

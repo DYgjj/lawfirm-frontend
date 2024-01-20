@@ -4,9 +4,7 @@
 <!--      <img src="@/assets/p2.jpg" alt=""  style="width: 100%; position:center;opacity: 0.5;">-->
       <el-header>
         <div style="flex: 2;display: flex;justify-content: center">
-
           <div style="margin-top: 20px;font-size: 90px;font-family:'Times New Roman';color: antiquewhite" >Professional Lawyer Team</div>
-
         </div>
         <el-divider></el-divider>
       </el-header>
@@ -132,7 +130,7 @@ export default {
   },
   methods: {
     findBySearch(){
-      request.get("/lawyer").then(res => {
+      request.get("/lawyer/findAll").then(res => {
         if (res.code === '0') {
           this.tableData = res.data
         } else {

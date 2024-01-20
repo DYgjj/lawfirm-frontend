@@ -57,7 +57,7 @@ export default {
     }
   },
   created() {
-    this.findBySearch();
+
   },
   mounted() {
     // request.get('/user').then(res => {
@@ -65,15 +65,7 @@ export default {
     // });
   },
   methods: {
-    findBySearch(){
-      request.get("/lawyer").then(res => {
-        if (res.code === '0') {
-          this.tableData = res.data.list
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
+
   }
 
 }

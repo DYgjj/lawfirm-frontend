@@ -20,7 +20,7 @@ public class LawyerController {
     @Resource
     private LawyerService lawyerService;
 
-    @GetMapping
+    @GetMapping("findAll")
     public Result findAll() {
         return Result.success(lawyerService.findAll());
     }

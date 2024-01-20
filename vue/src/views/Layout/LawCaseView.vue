@@ -220,16 +220,9 @@ export default {
     },
     reset() {
       this.params = {
-        cname: "",
-        lname: "",
-        content: "",
         title: "",
         pageNum: 1,
         pageSize: 5,
-        type: "",
-        status: "",
-        feedback:""
-
       }
       this.findBySearch();
       },

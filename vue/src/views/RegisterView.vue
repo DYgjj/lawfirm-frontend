@@ -30,6 +30,7 @@
           </el-form-item>
           <div style="flex: 1; text-align: center">Already have an account?  <span style="color: dodgerblue; cursor: pointer; " @click="$router.push('/login')">Login now </span></div>
           <div style="flex: 1; text-align: center; margin-top: 5px"><span style="color: dodgerblue; cursor: pointer" @click="handleForgetPass">Forgot Password?</span></div>
+          <div style="flex: 1; text-align: end; margin-top: 5px; cursor: pointer; color: dodgerblue;"  @click="back">Back to Home</div>
         </el-form>
       </div>
     </div>
@@ -156,7 +157,9 @@ export default {
         }
       })
     },
-
+    back() {
+      this.$router.push('/homepage_frontend')
+    }
   }
 }
 </script>

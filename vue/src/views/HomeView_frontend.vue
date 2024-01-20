@@ -1,5 +1,5 @@
 <template>
-  <div class="page1" style="background-color: antiquewhite">
+  <div class="page1" style=" display: flex; background-color: antiquewhite">
     <el-container>
       <el-header style="background-color: #545c64; background: rgb(0,0,0);background: rgba(0,0,0,0.5)" >
         <div style="font-family: 'Times New Roman'">
@@ -19,11 +19,7 @@
               <el-menu-item index="/team_frontend">Expert Legal Team</el-menu-item>
               <el-menu-item index="/about_frontend">About Us</el-menu-item>
               <el-menu-item index="/calendar_frontend">Calendar</el-menu-item>
-              <el-submenu index="2">
-                <template slot="title">login</template>
-                <el-menu-item style="color: #c97f0a" index="/login">Log in</el-menu-item>
-                <el-menu-item style="color: #c97f0a" index="/layout">Console</el-menu-item>
-              </el-submenu>
+              <el-menu-item style="color: #c97f0a" index="/layout">Console</el-menu-item>
             </el-menu>
           </div>
         </div>
@@ -35,8 +31,6 @@
         </el-main>
       </container>
 
-
-
     </el-container>
   </div>
 </template>
@@ -47,21 +41,38 @@ export default {
     return {
       default: 'homepage_frontend',
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
-
+      gridData: [],
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      form: {
+        name: '',
+        lawyer:'',
+        caseType: '',
+        caseDetail: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '120px'
     };
   },
   methods: {
-
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
-    }
-  }
-}
-</script>
+    },
+    login() {
+      this.$router.push("/login");
 
-<script>
-export default {
-  name: 'homepage_frontend',
+    },
+    logout(){
+      localStorage.removeItem("user");
+      this.$router.push("/homepage_frontend");
+
+    },
+  }
 }
 </script>
 
@@ -114,28 +125,3 @@ export default {
   background-color: #EAEEFF;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      gridData: [],
-      dialogTableVisible: false,
-      dialogFormVisible: false,
-      form: {
-        name: '',
-        lawyer:'',
-        caseType: '',
-        caseDetail: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      formLabelWidth: '120px'
-    };
-  }
-};
-</script>

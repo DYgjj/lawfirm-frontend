@@ -26,6 +26,7 @@
           </el-form-item>
           <div style="flex: 1; text-align: center">Don't have account? Please <span style="color: dodgerblue; cursor: pointer; " @click="register()">register</span></div>
           <div style="flex: 1; text-align: center; margin-top: 5px"><span style="color: dodgerblue; cursor: pointer" @click="handleForgetPass">Forgot Password?</span></div>
+          <div style="flex: 1; text-align: end; margin-top: 5px; cursor: pointer; color: dodgerblue;" @click="back">Back to Home</div>
         </el-form>
       </div>
     </div>
@@ -152,6 +153,9 @@ export default {
     },
     register() {
       this.$router.push('/register')
+    },
+    back() {
+      this.$router.push('/homepage_frontend')
     }
   }
 }
