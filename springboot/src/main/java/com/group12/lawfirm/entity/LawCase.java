@@ -30,4 +30,7 @@ public class LawCase {
     private String type;
     @Column(name = "lname")
     private String lname;
+
+    @Transient
+    private String lawyerName;
 }

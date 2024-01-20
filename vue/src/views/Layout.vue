@@ -45,10 +45,10 @@
               <span>Law Case</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/lawCaseRefusal">Audit Case</el-menu-item>
+<!--              <el-menu-item index="/lawCaseRefusal">Audit Case</el-menu-item>-->
               <el-menu-item index="/lawCaseAcceptance">Ongoing Case</el-menu-item>
-              <el-menu-item index="/lawCaseCompletion">Closed Case</el-menu-item>
-              <el-menu-item index="/lawCase">Rejected Case</el-menu-item>
+<!--              <el-menu-item index="/lawCaseCompletion">Closed Case</el-menu-item>-->
+<!--              <el-menu-item index="/lawCase">Rejected Case</el-menu-item>-->
             </el-menu-item-group>
           </el-submenu>
 

@@ -3,7 +3,9 @@
 <mapper namespace="com.group12.lawfirm.dao.LawCaseDao">
 
     <select id="findBySearchAcceptance" resultType="com.group12.lawfirm.entity.LawCase">
-        select * from lawcase
+        SELECT lawcase.*, lawyer.name AS lawyerName from lawcase
+        LEFT JOIN lawyer ON lawcase.lname = lawyer.id
+
         <where>
         status = 'acceptance'
             <if test="params != null and params.title != null and params.title != ''">

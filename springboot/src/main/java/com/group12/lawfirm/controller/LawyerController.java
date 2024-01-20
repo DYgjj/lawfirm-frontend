@@ -31,6 +31,7 @@ public class LawyerController {
         return Result.success(info);
     }
 
+
     @AutoLogs(operation = "Lawyer", type = LogType.ADD_OR_UPDATE)
     @PostMapping
     public Result save(@RequestBody Lawyer lawyer) {

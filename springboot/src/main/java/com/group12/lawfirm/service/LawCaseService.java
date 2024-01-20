@@ -24,6 +24,13 @@ public class LawCaseService {
         List<LawCase> list = lawCaseDao.findBySearch(params);
         return PageInfo.of(list);
     }
+    public PageInfo<LawCase> findBySearch2(Params params) {
+        //开启分页
+        PageHelper.startPage(params.getPageNum(), params.getPageSize());
+        //接下来的查询会自动按照当前开启的分页设置来查询
+        List<LawCase> list = lawCaseDao.findBySearch2(params);
+        return PageInfo.of(list);
+    }
 
     public PageInfo<LawCase> findBySearchAcceptance(Params params) {
         //开启分页
@@ -83,5 +90,9 @@ public class LawCaseService {
 
     public void delete(Integer id) {
         lawCaseDao.deleteByPrimaryKey(id);
+    }
+
+    public List<LawCase> findAll(){
+        return lawCaseDao.findAll();
     }
 }

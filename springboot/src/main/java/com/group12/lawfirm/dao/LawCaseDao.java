@@ -14,6 +14,7 @@ import java.util.List;
 public interface LawCaseDao extends Mapper<LawCase> {
 
     List<LawCase> findBySearch(@Param("params") Params params);
+    List<LawCase> findBySearch2(@Param("params") Params params);
     List<LawCase> findBySearchAcceptance(@Param("params") Params params);
     List<LawCase> findBySearchCompletion(@Param("params") Params params);
     List<LawCase> findBySearchRefusal(@Param("params") Params params);
@@ -23,4 +24,7 @@ public interface LawCaseDao extends Mapper<LawCase> {
 
     @Select("select * from lawyer where name = #{lname} limit 1")
     LawCase findByLname(@Param("lname") String lname);
+
+    @Select("select * from lawcase")
+    List<LawCase> findAll();
 }
