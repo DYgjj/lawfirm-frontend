@@ -10,8 +10,8 @@
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
     </div>
     <div>
-      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
-      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
+      <el-button v-if="user.role === 'ROLE_ADMIN' || user.role === 'ROLE_STAFF'" type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
+      <el-popconfirm v-if="user.role === 'ROLE_STAFF'" title="Confirm to delete?" @confirm="delBatch()">
         <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
       </el-popconfirm>
     </div>
@@ -46,9 +46,9 @@
         </el-table-column>
         <el-table-column label="operate">
           <template v-slot="scope">
-            <el-button type="primary" style="width: 65px" @click="edit(scope.row)">Edit</el-button>
-            <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)">
-              <el-button slot="reference" type="danger" style="width: 65px; margin-left: 10px">Delete</el-button>
+            <el-button type="primary" style="width: 65px" @click="edit(scope.row)" v-if="user.role === 'ROLE_STAFF'">Edit</el-button>
+            <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)" v-if="user.role === 'ROLE_STAFF'">
+              <el-button slot="reference" type="danger" style="width: 65px; margin-left: 10px" >Delete</el-button>
             </el-popconfirm>
           </template>
 

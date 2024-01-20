@@ -4,7 +4,7 @@
       <el-header style="background-color: #545c64; background: rgb(0,0,0);background: rgba(0,0,0,0.5)" >
         <div style="font-family: 'Times New Roman'">
           <img src="@/assets/logo.png" alt="" style="width: 100px; position: relative; top: 5px; right: 5px">
-          <span style="font-size: xx-large;position: relative;bottom: 10px; font-weight: bold; color: antiquewhite; margin-left: 10px">Law Firm Management System</span>
+          <span style="font-size: xx-large;position: relative;bottom: 10px; font-weight: bold; color: antiquewhite; margin-left: 10px">G12 Law Firm</span>
           <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
             <el-menu
                 :default-active="$route.path" router

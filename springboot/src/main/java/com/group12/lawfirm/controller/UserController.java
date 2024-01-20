@@ -1,12 +1,9 @@
 package com.group12.lawfirm.controller;
 
-import javax.validation.Valid;
-import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.group12.lawfirm.common.*;
 import com.group12.lawfirm.entity.Params;
 import com.group12.lawfirm.entity.User;
-import com.group12.lawfirm.exception.CustomException;
 import com.group12.lawfirm.service.UserService;
 import org.springframework.web.bind.annotation.*;
 

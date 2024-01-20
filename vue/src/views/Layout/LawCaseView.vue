@@ -4,9 +4,9 @@
       <el-input v-model="params.title" style="width: 200px" placeholder="Please input title"></el-input>
       <el-button type="warning" style="margin: 10px; width: 70px" @click="findBySearch()">search</el-button>
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
-      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
+      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()"  v-if="user.role === 'ROLE_STAFF'">add</el-button>
       <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
-        <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
+        <el-button slot="reference" type="danger" style="width: 100px"  v-if="user.role === 'ROLE_STAFF'">Batch Delete</el-button>
       </el-popconfirm>
     </div>
 
@@ -21,7 +21,7 @@
           <template v-slot="scope">
             <div v-if="isShow"> {{scope.row.status}}
               <span >
-                <el-button type= "primary" style="width: 65px; float: right" @click="editStatus(scope.row)">
+                <el-button type= "primary" style="width: 65px; float: right" @click="editStatus(scope.row)" v-if="user.role === 'ROLE_STAFF'">
                   Edit
                 </el-button>
               </span>
@@ -32,7 +32,7 @@
 
         <el-table-column prop="feedback" label="Feedback">
           <template v-slot="scope">
-            <el-button type= "primary" style="width: 65px; margin-left: 10px" @click="editFeedback(scope.row)">Edit</el-button>
+            <el-button type= "primary" style="width: 65px; margin-left: 10px" @click="editFeedback(scope.row)" v-if="user.role === 'ROLE_STAFF'">Edit</el-button>
             <el-button type= "success" style="width: 65px" @click="viewEditor(scope.row.feedback)">
               Detail
             </el-button>
@@ -50,7 +50,7 @@
         <el-table-column label="operate">
           <template v-slot="scope">
 
-            <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)">
+            <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)" v-if="user.role === 'ROLE_STAFF'">
               <el-button slot="reference" type="danger" style="width: 65px; margin-left: 10px">Delete</el-button>
             </el-popconfirm>
           </template>

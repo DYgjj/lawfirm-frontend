@@ -3,7 +3,7 @@
       <h1 style="border-top: 10px; color: antiquewhite; text-align: center">OUR TEAM MEMBERS</h1>
 
     <div style="margin: 20px 0;display: flex; flex-wrap: wrap;justify-content: center;">
-      <div style="width: 500px;height: 400px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
+      <div style="width: 500px;height: 450px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
         <el-card class="box-card" style="background: rgb(204, 204, 204);background: rgba(204, 204, 204, 0.5); width: 100%; height: 100%;border-radius: 15px">
       <div slot="header" class="clearfix" style="color: antiquewhite">
         <span>Zeng Yukun (Matric No:155168)</span>
@@ -18,7 +18,7 @@
       </div>
     </el-card>
       </div>
-      <div style="width: 500px;height: 400px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
+      <div style="width: 500px;height: 450px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
         <el-card class="box-card" style="background: rgb(204, 204, 204);background: rgba(204, 204, 204, 0.5); width: 100%; height: 100%;border-radius: 15px">
           <div slot="header" class="clearfix" style="color: antiquewhite">
             <span>Liu Yifan (Matric No:155054)</span>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div style="margin: 20px 0;display: flex; flex-wrap: wrap;justify-content: center">
-      <div style="width: 500px;height: 400px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
+      <div style="width: 500px;height: 450px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
         <el-card class="box-card" style="background: rgb(204, 204, 204);background: rgba(204, 204, 204, 0.5); width: 100%; height: 100%;border-radius: 15px">
           <div slot="header" class="clearfix" style="color: antiquewhite">
             <span>Wei Xiaolong (Matric No:155114)</span>
@@ -51,7 +51,7 @@
           </div>
         </el-card>
       </div>
-      <div style="width: 500px;height: 400px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
+      <div style="width: 500px;height: 450px;margin:10px 50px 50px 5px;background-color: #211e1e;box-shadow: 0 0 10PX -2PX RGBA(0,0,0,5);border-radius: 15px;background: rgb(0,0,0);background: rgba(0,0,0,0.5);">
         <el-card class="box-card" style="background: rgb(204, 204, 204);background: rgba(204, 204, 204, 0.5); width: 100%; height: 100%;border-radius: 15px">
           <div slot="header" class="clearfix" style="color: antiquewhite">
             <span>Hu Dewen (Matric No:155166)</span>

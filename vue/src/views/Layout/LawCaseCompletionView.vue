@@ -4,8 +4,8 @@ CaseRejectedView.vue<template>
       <el-input v-model="params.title" style="width: 200px" placeholder="Please input title"></el-input>
       <el-button type="warning" style="margin: 10px; width: 70px" @click="findBySearch()">search</el-button>
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
-      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
-      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
+      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()" v-if="user.role === 'ROLE_STAFF'">add</el-button>
+      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()" v-if="user.role === 'ROLE_STAFF'">
         <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
       </el-popconfirm>
     </div>
@@ -21,7 +21,7 @@ CaseRejectedView.vue<template>
           <template v-slot="scope">
             <div v-if="isShow"> {{scope.row.status}}
               <span >
-                <el-button type= "primary" style="width: 65px; float: right" @click="editStatus(scope.row)">
+                <el-button type= "primary" style="width: 65px; float: right" @click="editStatus(scope.row)" v-if="user.role === 'ROLE_STAFF'">
                   Edit
                 </el-button>
               </span>

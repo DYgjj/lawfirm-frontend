@@ -11,20 +11,12 @@
         </div>
         <div>
           <div style="margin-top: 20px">
-
-
             <div>
-              <el-table :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange" >
-
+              <el-table :data="tableData" border style="width: 100%">
                 <el-table-column prop="content" label="Content"></el-table-column>
                 <el-table-column prop="date" label="Date"></el-table-column>
-
               </el-table>
             </div>
-
-
-
-
           </div>
         </div>
       </el-card>

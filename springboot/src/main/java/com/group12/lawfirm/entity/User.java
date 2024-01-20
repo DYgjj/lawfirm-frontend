@@ -33,7 +33,6 @@ public class User {
 
     @Transient
     private String oldPassword;
-
     @Transient
     private String newPassword;
 

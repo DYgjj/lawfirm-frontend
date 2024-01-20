@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.group12.lawfirm.dao.LawyerDao;
 import com.group12.lawfirm.entity.Lawyer;
 import com.group12.lawfirm.entity.Params;
-import com.group12.lawfirm.exception.CustomException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -89,7 +89,6 @@
           <el-form-item label="Client Name" label-width="16%" >
             <el-input v-model="form.cname" autocomplete="off" style="width: 100%"></el-input>
           </el-form-item>
-          ///gaide
           <el-form-item label="Lawyer Name" label-width="16%" >
             <el-select v-model="form.lname" placeholder="Select" style="width: 30%">
               <el-option v-for="item in lawyerObjs" :key="item.id" :label="item.name" :value="item.id"></el-option>
@@ -192,35 +191,6 @@
       </el-dialog>
     </div>
 
-    <!-- event -->
-    <div>
-      <el-dialog title="Event" :visible.sync="EventForm" width="43%">
-        <div class="about" >
-          <el-table :data="eventObjs" border style="width: 100%" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="eventtitle" label="Eventtitle"></el-table-column>
-            <el-table-column prop="description" label="Description">
-              <template v-slot="scope">
-                <el-button type= "success" style="width: 65px" @click="viewEditor(scope.row.description)">
-                  Detail
-                </el-button>
-              </template>
-            </el-table-column>
-            <el-table-column prop="eventdate" label="eventdate"></el-table-column>
-            <el-table-column label="operate">
-              <template v-slot="scope">
-                <el-button type="primary" style="margin: 10px; width: 70px" @click="EventAdd()">addEvent</el-button>
-                <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)">
-                  <el-button slot="reference" type="danger" style="width: 65px; margin-left: 10px">Delete</el-button>
-                </el-popconfirm>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-      </el-dialog>
-    </div>
-
-
   </div>
 </template>
 
@@ -283,10 +253,8 @@ export default {
   created() {
 
     //gaide
-    this.findBySearchEvent();
     this.findBySearchP();
     this.findLawyer();
-    this.findevent();
     //this.cname();
   },
   //定义一些页面上空间触发事件调用的方法
@@ -419,12 +387,6 @@ export default {
       this.eventObjs = {};
       this.EventAddtable = true;
     },
-
-    openevent() {
-
-      this.form = {};
-      this.EventForm = true;
-    },
     submit() {
       this.form.content = editor.txt.html()
       request.post("/lawCase",this.form).then(res => {
@@ -458,34 +420,6 @@ export default {
           this.findBySearch()
         }else {
           this.$message.error(res.msg);
-        }
-      })
-    },
-
-    submitevent() {
-      request.post("/event",this.eventObjs).then(res => {
-        if (res.code === '0'){
-          this.$message({
-            message: 'Operate Successfully',
-            type: 'success'
-          });
-          this.dialogFormFeedback = false;
-          this.dialogFormStatus = false;
-          this.dialogFormVisible = false,
-              this.editorVisible = false,
-            this.EventAddtable = false,
-              this.findBySearchEvent()
-        }else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    findevent() {
-      request.get("/event/findAll").then(res => {
-        if (res.code === '0') {
-          this.eventObjs1 = res.data;
-        } else {
-          this.$message.error(res.msg)
         }
       })
     },

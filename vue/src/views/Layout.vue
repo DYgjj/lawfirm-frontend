@@ -19,7 +19,7 @@
     <el-container>
       <el-aside style="overflow: hidden; min-height: 100vh; background-color: #545c64; width: 220px">
         <el-menu :default-active="$route.path" router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-          <el-menu-item index="/">
+          <el-menu-item index="/home">
             <i class="el-icon-menu"></i>
             <span slot="title">Dashboard</span>
           </el-menu-item>
@@ -27,7 +27,7 @@
             <i class="el-icon-user-solid"></i>
             <span slot="title">Account Information</span>
           </el-menu-item>
-          <el-submenu index="2" >
+          <el-submenu index="2" v-if="user.role === 'ROLE_ADMIN' || user.role === 'ROLE_STAFF'">
             <template slot="title">
               <i class="el-icon-more"></i>
               <span>User Information</span>
@@ -52,7 +52,7 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <el-menu-item index="/logs">
+          <el-menu-item index="/logs" v-if="user.role === 'ROLE_ADMIN'">
             <i class="el-icon-s-order"></i>
             <span slot="title">Logs</span>
           </el-menu-item>

@@ -4,11 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.group12.lawfirm.common.AutoLogs;
 import com.group12.lawfirm.common.LogType;
 import com.group12.lawfirm.common.Result;
+import com.group12.lawfirm.dao.EventDao;
 import com.group12.lawfirm.entity.Event;
-import com.group12.lawfirm.entity.LawCase;
+import com.group12.lawfirm.entity.Lawyer;
 import com.group12.lawfirm.entity.Params;
 import com.group12.lawfirm.service.EventService;
-import com.group12.lawfirm.service.LawCaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +28,15 @@ public class EventController {
         PageInfo<Event> info = eventService.findBySearch(params);
         return Result.success(info);
     }
+    @GetMapping
+    public Result findAll(){
+        return Result.success(eventService.findAll());
+    }
+
+    @GetMapping("/date/{date}")
+    public Result findByDate(@PathVariable String date){
+        return Result.success(eventService.findByDate(date));
+    }
 
     @AutoLogs(operation = "Event", type = LogType.ADD_OR_UPDATE)
     @PostMapping
@@ -38,9 +48,4 @@ public class EventController {
         }
         return Result.success();
     }
-    @GetMapping("findAll")
-    public Result findAll() { return Result.success(eventService.findAll());
-    }
-
-
 }
