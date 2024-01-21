@@ -206,7 +206,7 @@ let editor
 function initWangEditor(content) {	setTimeout(() => {
   if (!editor) {
     editor = new E('#editor')
-    editor.config.placeholder = '请输入内容'
+    editor.config.placeholder = 'Please input'
     editor.config.uploadFileName = 'file'
     editor.config.uploadImgServer = 'http://localhost:8080/files/wang/upload'
     editor.create()
