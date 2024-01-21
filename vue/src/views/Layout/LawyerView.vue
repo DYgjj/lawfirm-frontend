@@ -39,8 +39,8 @@
           <template v-slot="scope">
             <el-image
                 style="width: 130px; height: 130px"
-                :src="'http://sql.wsfdb.cn:8080/files/' + scope.row.photo"
-                :preview-src-list="['http://sql.wsfdb.cn:8080/files/' + scope.row.photo]">
+                :src="'http://localhost:8080/files/' + scope.row.photo"
+                :preview-src-list="['http://localhost:8080/files/' + scope.row.photo]">
             </el-image>
           </template>
         </el-table-column>

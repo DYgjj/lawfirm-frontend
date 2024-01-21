@@ -57,26 +57,22 @@ export default {
     submit() {
       this.$refs.formRef.validate((valid) => {
         if (valid) {
-          if (this.form.password === this.form.oldPassword) {
-            request.put("/user/changePassword",this.form).then(res => {
-                if (res.code === '0'){
-                  this.$message({
-                    message: 'Operate Successfully',
-                    type: 'success'
-                  });
-                  localStorage.setItem("user", JSON.stringify(this.form));
-                  this.$router.push("/login");
-                  localStorage.removeItem("user");
+          request.put("/user/changePassword",this.form).then(res => {
+              if (res.code === '0'){
+                this.$message({
+                  message: 'Operate Successfully',
+                  type: 'success'
+                });
+                localStorage.setItem("user", JSON.stringify(this.form));
+                this.$router.push("/login");
+                localStorage.removeItem("user");
 
-                  // 触发父级的数据更新
-                  this.$emit('update:user', this.form)
-                }else {
-                  this.$message.error(res.msg);
-                }
-            })
-          } else {
-            this.$message.error("Old password is unconformity!");
-          }
+                // 触发父级的数据更新
+                this.$emit('update:user', this.form)
+              }else {
+                this.$message.error(res.msg);
+              }
+          })
         }
       })
     },

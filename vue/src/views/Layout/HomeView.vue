@@ -70,7 +70,7 @@ export default {
   },
 
   created() {
-
+    this.params.cname = this.user.name
     this.findBySearchEvent();
 
   },
@@ -81,7 +81,7 @@ export default {
         params: this.params
       }).then(res => {
         if (res.code === '0') {
-          this.tableData = res.data.list
+          this.tableData = res.data
           this.total = res.data.total
         } else {
           this.$message.error(res.msg);

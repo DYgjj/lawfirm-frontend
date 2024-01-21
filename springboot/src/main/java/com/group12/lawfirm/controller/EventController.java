@@ -6,7 +6,7 @@ import com.group12.lawfirm.common.LogType;
 import com.group12.lawfirm.common.Result;
 import com.group12.lawfirm.dao.EventDao;
 import com.group12.lawfirm.entity.Event;
-import com.group12.lawfirm.entity.Lawyer;
+
 import com.group12.lawfirm.entity.Params;
 import com.group12.lawfirm.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;

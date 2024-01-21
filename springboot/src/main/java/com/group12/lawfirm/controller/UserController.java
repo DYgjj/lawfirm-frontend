@@ -79,6 +79,7 @@ public class UserController {
     @AutoLogs(operation = "User", type = LogType.UPDATE_PASSWORD)
     @PutMapping("/changePassword")
     public Result profile(@RequestBody User user) {
+        user.setOldPassword(MD5Util.MD5(user.getOldPassword()));
         userService.changePassword(user);
         return Result.success();
     }

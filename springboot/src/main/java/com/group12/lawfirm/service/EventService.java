@@ -44,4 +44,5 @@ public class EventService {
     public List<Event> findBySearch(Params params) {
         return eventDao.findBySearch(params);
     }
+
 }

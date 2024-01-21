@@ -16,4 +16,5 @@ public interface EventDao extends Mapper<Event> {
     List<Event> findAllByDate(@Param("date") String date);
 
     List<Event> findBySearch(@Param("params")Params params);
+
 }

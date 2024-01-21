@@ -110,6 +110,7 @@ public class UserService {
     }
 
     public void changePassword(User user) {
+
         if (Objects.equals(user.getOldPassword(), user.getPassword())) {
             user.setPassword(MD5Util.MD5(user.getNewPassword()));
             userDao.updateByPrimaryKeySelective(user);
