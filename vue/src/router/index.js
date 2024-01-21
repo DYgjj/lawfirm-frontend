@@ -15,6 +15,7 @@ import LawCaseAcceptanceView from "@/views/Layout/LawCaseAcceptanceView";
 import LawCaseCompletionView from "@/views/Layout/LawCaseCompletionView";
 import LawCaseRefusalView from "@/views/Layout/LawCaseRefusalView";
 import LogsView from "@/views/Layout/LogsView";
+import MyCaseView from "@/views/Layout/MyCaseView";
 
 
 // 解决导航栏或者底部导航tabBar中的vue-router在3.0版本以上频繁点击菜单报错的问题。
@@ -115,6 +116,12 @@ const routes = [
         component: LawCaseRefusalView
       },
       {
+        path: '/myCase',
+        name: 'password',
+        meta: { name: 'Change password'},
+        component: MyCaseView
+      },
+      {
         path: '/profile',
         name: 'profile',
         meta: { name: 'Profile'},
@@ -164,7 +171,7 @@ const router = new VueRouter({
 router.beforeEach((to ,from, next) => {
   const user = localStorage.getItem("user");
   if (!user && to.path !== '/login' && to.path !== '/register' && to.path !== '/homepage_frontend'
-            && to.path !== '/team_frontend'&& to.path !== '/about_frontend' && to.path !== '/calendar_frontend') {
+            && to.path !== '/team_frontend'&& to.path !== '/about_frontend') {
     next("/login");
   } else {
     let adminPaths = ['/user']

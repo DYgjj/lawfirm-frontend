@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface LawCaseDao extends Mapper<LawCase> {
 
+    List<LawCase> findBySearchAll(@Param("params") Params params);
     List<LawCase> findBySearch(@Param("params") Params params);
     List<LawCase> findBySearch2(@Param("params") Params params);
     List<LawCase> findBySearchAcceptance(@Param("params") Params params);

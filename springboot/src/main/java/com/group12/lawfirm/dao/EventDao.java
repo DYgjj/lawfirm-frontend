@@ -13,7 +13,7 @@ import java.util.List;
 public interface EventDao extends Mapper<Event> {
 
     @Select("select * from event where date = #{date}")
-    Event findAllByDate(@Param("date") String date);
+    List<Event> findAllByDate(@Param("date") String date);
 
     List<Event> findBySearch(@Param("params")Params params);
 }

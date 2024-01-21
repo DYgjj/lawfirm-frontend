@@ -17,6 +17,14 @@ public class LawCaseService {
     @Resource
     LawCaseDao lawCaseDao;
 
+    public PageInfo<LawCase> findBySearchAll(Params params) {
+        //开启分页
+        PageHelper.startPage(params.getPageNum(), params.getPageSize());
+        //接下来的查询会自动按照当前开启的分页设置来查询
+        List<LawCase> list = lawCaseDao.findBySearchAll(params);
+        return PageInfo.of(list);
+    }
+
     public PageInfo<LawCase> findBySearch(Params params) {
         //开启分页
         PageHelper.startPage(params.getPageNum(), params.getPageSize());

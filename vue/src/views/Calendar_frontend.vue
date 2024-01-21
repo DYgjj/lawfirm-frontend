@@ -3,22 +3,35 @@
 
     <div  class="home" style="display: flex; background-color: white; width: 70%; border-radius: 5px; overflow: hidden">
       <el-calendar>
-        <!-- 这里使用的是 2.5 slot 语法，对于新项目请使用 2.6 slot 语法-->
         <template
             slot="dateCell"
             slot-scope="{date, data}">
           <div class="calendarStyle" style="min-height: 85px; word-break: break-all" @click="handleClick(data.day)">
             <div> {{ data.day.split('-').slice(1).join('-') }} </div>
-            <div v-if="arr.find(v => v.date === data.day)"> {{ arr.find(v => v.date === data.day).content }} </div>
+            <div v-if="arr.find(v => v.date === data.day)">
+              <span style="display:block; color: dodgerblue; cursor: pointer">More...</span>
+            </div>
           </div>
         </template>
       </el-calendar>
 
       <!-- Form -->
 
+      <el-dialog title="Event" :visible.sync="dialogFormEvent" style="width: 70%; margin-left: 200px">
+        <el-table :data="showEvent" border style="width: 100%" @selection-change="handleSelectionChange" >
+          <el-table-column prop="content" label="Content" style="width: 100%"></el-table-column>
+          <el-table-column prop="date" label="Date" style="width: 100%"></el-table-column>
+        </el-table>
+<!--        <div v-for="(item, index) in showEvent" :key="index" style="line-height: 30px; text-align: left; padding: 0 80px">{{item.content}}</div>-->
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormEvent = false">Cancel</el-button>
+          <el-button type="primary" @click="addNewEvent">Add a new event</el-button>
+        </div>
+      </el-dialog>
+
       <el-dialog title="Event" :visible.sync="dialogFormVisible" style="width: 70%; margin-left: 200px">
-        <el-form :model="calendar">
-          <el-form-item label="Please input content" :label-width="formLabelWidth">
+        <el-form :model="calendar" :label-width="formLabelWidth">
+          <el-form-item label="Please input content" >
             <el-input type="textarea" v-model="calendar.content" autocomplete="off" style="width: 90%"></el-input>
           </el-form-item>
         </el-form>
@@ -28,9 +41,10 @@
         </div>
       </el-dialog>
 
+
       <el-dialog title="Daily Event" :visible.sync="visible" style="width: 70%; margin-left: 200px">
         <div v-html = "content" style="line-height: 30px; text-align: left; padding: 0 80px"></div>
-        <el-button @click="visible = false" style="margin-top: 20px" type="primary">Got it</el-button>
+        <el-button  style="margin-top: 20px" type="primary" @click="saveContent">Got it</el-button>
       </el-dialog>
 
     </div>
@@ -50,29 +64,46 @@ export default {
       value: new Date(),
       arr: [],
       dialogFormVisible: false,
-      calendar:{},
+      dialogFormEvent: false,
+      params: {
+        cname: "",
+      },
+      calendar:{
+        cname: ""
+      },
       formLabelWidth: '200px',
       visible: true,
-      content: ''
+      content: '',
+      showEvent: [],
+      multipleSelection: [],
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     };
   },
 
   created() {
+    this.params.cname = this.user.name
+
     this.load();
   },
   methods: {
+    saveContent(){
+      this.visible = false;
+    },
     load() {
-      request.get("/event").then(res => {
+      request.get("/event/search", {
+        params: this.params,
+      }).then(res => {
         if(res.code === '0'){
           this.arr = res.data
+
+          const date = new Date().toJSON().split('T').join(' ').substr(0, 10)
+          const data = this.arr.find(v => v.date === date)
+          if(data) {
+            this.content = data.content
+            this.visible = true
+          }
         } else {
           this.$message.error(res.msg);
-        }
-        const date = new Date().toJSON().split('T').join(' ').substr(0, 10)
-        const data = this.arr.find(v => v.date === date)
-        if(data) {
-          this.visible = true
-          this.content = data.content
         }
       })
     },
@@ -87,22 +118,26 @@ export default {
           this.dialogFormVisible = false
         } else {
           this.$message.error(res.msg);
-          this.dialogFormVisible = false
           }
       })
     },
+    addNewEvent() {
+      this.dialogFormVisible = true;
+      this.dialogFormEvent = false;
+    },
     handleClick(date) {
       request.get("/event/date/" + date).then(res => {
-        if(res){
-          this.calendar = res.data
-          this.dialogFormVisible = true;
-        } else {
-          this.$message.error(res.msg);
-          this.dialogFormVisible = true;
+        if (res){
+          this.showEvent = res.data
+          this.calendar = {date: date}
+          this.calendar.cname = this.user.name
         }
+        this.dialogFormEvent = true;
       })
-    }
-
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
   },
 };
 </script>

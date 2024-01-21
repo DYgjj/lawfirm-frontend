@@ -15,6 +15,7 @@ public class Params {
     private String expertise;
     private String operation;
     private String user;
+    private String cname;
     private String eventtitle;
     private String description;
     private String eventdate;

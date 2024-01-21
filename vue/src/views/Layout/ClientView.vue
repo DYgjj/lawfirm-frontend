@@ -5,10 +5,13 @@
       <el-input v-model="params.phone" style="width: 200px; margin-left: 5px" placeholder="Please input phone"></el-input>
       <el-button type="warning" style="margin: 10px; width: 70px" @click="findBySearch()">search</el-button>
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
-      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
-      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
-        <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
-      </el-popconfirm>
+      <div>
+        <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
+        <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
+          <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
+        </el-popconfirm>
+      </div>
+
     </div>
 
     <div class="about">

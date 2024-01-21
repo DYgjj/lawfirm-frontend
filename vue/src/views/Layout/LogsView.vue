@@ -6,11 +6,6 @@
       <el-button type="warning" style="margin: 10px; width: 70px" @click="findBySearch()">search</el-button>
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
     </div>
-    <div>
-      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
-        <el-button slot="reference" type="danger" style="margin: 10px; width: 100px">Batch Delete</el-button>
-      </el-popconfirm>
-    </div>
 
     <div class="about">
 
@@ -110,20 +105,6 @@ export default {
             message: 'Operate Successfully',
             type: 'success'
           });
-          this.findBySearch();
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    delBatch() {
-      if (this.multipleSelection.length ===0){
-        this.$message.warning("Please select the option you want to delete!")
-        return
-      }
-      request.put("/logs/delBatch", this.multipleSelection).then(res => {
-        if (res.code === '0'){
-          this.$message.success("Operate Successfully");
           this.findBySearch();
         } else {
           this.$message.error(res.msg);

@@ -27,7 +27,7 @@
             <i class="el-icon-user-solid"></i>
             <span slot="title">Account Information</span>
           </el-menu-item>
-          <el-submenu index="2" v-if="user.role === 'ROLE_ADMIN' || user.role === 'ROLE_STAFF'">
+          <el-submenu index="2" v-if="user.role === 'ROLE_STAFF'">
             <template slot="title">
               <i class="el-icon-more"></i>
               <span>User Information</span>
@@ -39,18 +39,16 @@
           </el-submenu>
 
 
-          <el-submenu index="3" >
-            <template slot="title">
-              <i class="el-icon-more"></i>
-              <span>Law Case</span>
-            </template>
-            <el-menu-item-group>
-<!--              <el-menu-item index="/lawCaseRefusal">Audit Case</el-menu-item>-->
-              <el-menu-item index="/lawCaseAcceptance">Ongoing Case</el-menu-item>
-<!--              <el-menu-item index="/lawCaseCompletion">Closed Case</el-menu-item>-->
-<!--              <el-menu-item index="/lawCase">Rejected Case</el-menu-item>-->
-            </el-menu-item-group>
-          </el-submenu>
+
+          <el-menu-item index="/lawCaseAcceptance" v-if="user.role === 'ROLE_STAFF'">
+            <i class="el-icon-s-management"></i>
+            <span slot="title">Law Case</span>
+          </el-menu-item>
+
+          <el-menu-item index="/myCase" v-if="user.role === 'ROLE_CLIENT'">
+            <i class="el-icon-s-management"></i>
+            <span slot="title">My Case</span>
+          </el-menu-item>
 
           <el-menu-item index="/logs" v-if="user.role === 'ROLE_ADMIN'">
             <i class="el-icon-s-order"></i>

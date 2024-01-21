@@ -25,7 +25,7 @@ public class EventController {
 
     @GetMapping("/search")
     public Result findBySearch(Params params){
-        PageInfo<Event> info = eventService.findBySearch(params);
+        List<Event> info = eventService.findBySearch(params);
         return Result.success(info);
     }
     @GetMapping

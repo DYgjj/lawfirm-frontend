@@ -4,6 +4,11 @@
 
     <select id="findBySearch" resultType="com.group12.lawfirm.entity.Event">
         select * from event
+        <where>
+            <if test="params != null and params.cname != null and params.cname != ''">
+                and cname = #{params.cname}
+            </if>
+        </where>
     </select>
 
 </mapper>

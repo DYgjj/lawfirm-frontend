@@ -7,9 +7,6 @@
     </div>
     <div>
       <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
-      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
-        <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
-      </el-popconfirm>
     </div>
 
     <div class="about">
@@ -173,20 +170,6 @@ export default {
             message: 'Operate Successfully',
             type: 'success'
           });
-          this.findBySearch();
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    delBatch() {
-      if (this.multipleSelection.length ===0){
-        this.$message.warning("Please select the option you want to delete!")
-        return
-      }
-      request.put("/user/delBatch", this.multipleSelection).then(res => {
-        if (res.code === '0'){
-          this.$message.success("Operate Successfully");
           this.findBySearch();
         } else {
           this.$message.error(res.msg);

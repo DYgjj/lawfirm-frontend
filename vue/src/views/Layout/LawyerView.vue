@@ -10,7 +10,7 @@
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
     </div>
     <div>
-      <el-button v-if="user.role === 'ROLE_ADMIN' || user.role === 'ROLE_STAFF'" type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
+      <el-button  type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
       <el-popconfirm v-if="user.role === 'ROLE_STAFF'" title="Confirm to delete?" @confirm="delBatch()">
         <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
       </el-popconfirm>
@@ -39,8 +39,8 @@
           <template v-slot="scope">
             <el-image
                 style="width: 130px; height: 130px"
-                :src="'http://localhost:8080/files/' + scope.row.photo"
-                :preview-src-list="['http://localhost:8080/files/' + scope.row.photo]">
+                :src="'http://sql.wsfdb.cn:8080/files/' + scope.row.photo"
+                :preview-src-list="['http://sql.wsfdb.cn:8080/files/' + scope.row.photo]">
             </el-image>
           </template>
         </el-table-column>

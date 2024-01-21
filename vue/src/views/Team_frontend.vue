@@ -61,19 +61,9 @@
                   <el-option v-for="item in ['criminal', 'civil']" :key="item" :value="item"></el-option>
                 </el-select>
               </el-form-item >
-              <el-form-item label="Client Name" label-width="16%" >
-                <el-input v-model="form.cname" autocomplete="off" style="width: 100%"></el-input>
-              </el-form-item>
-              ///gaide
               <el-form-item label="Lawyer Name" label-width="16%" >
                 <el-select v-model="form.lname" placeholder="Select" style="width: 30%">
                   <el-option v-for="item in lawyerObjs" :key="item.id" :label="item.name" :value="item.id"></el-option>
-                </el-select>
-
-              </el-form-item >
-              <el-form-item label="status" prop="status" label-width="16%" >
-                <el-select  style="width: 30%" v-model="form.status">
-                  <el-option v-for="item in ['pending', 'refusal','acceptance','completion']" :key="item" :value="item"></el-option>
                 </el-select>
               </el-form-item >
 
@@ -159,7 +149,7 @@ function initWangEditor(content) {
       editor = new E('#editor')
       editor.config.placeholder = '请输入内容'
       editor.config.uploadFileName = 'file'
-      editor.config.uploadImgServer = 'http://localhost:8080/files/wang/upload'
+      editor.config.uploadImgServer = '/files/wang/upload'
       editor.create()
     }
     editor.txt.html(content)
@@ -255,6 +245,8 @@ export default {
     },
     submit() {
       this.form.content = editor.txt.html()
+      this.form.status = "pending"
+      this.form.cname = this.user.name
       request.post("/lawCase",this.form).then(res => {
         if (res.code === '0'){
           this.$message({
@@ -263,9 +255,9 @@ export default {
           });
           this.dialogFormFeedback = false;
           this.dialogFormStatus = false;
-          this.dialogFormVisible1 = false,
-              this.editorVisible = false,
-              this.findBySearch()
+          this.dialogFormVisible1 = false;
+          this.editorVisible = false;
+          this.findBySearch()
         }else {
           this.$message.error(res.msg);
         }

@@ -26,6 +26,12 @@ public class LawCaseController {
     @Resource
     private LawCaseService lawCaseService;
 
+    @GetMapping("/searchAll")
+    public Result findBySearchAll(Params params){
+        PageInfo<LawCase> info = lawCaseService.findBySearchAll(params);
+        return Result.success(info);
+    }
+
     @GetMapping("/search")
     public Result findBySearch(Params params){
         PageInfo<LawCase> info = lawCaseService.findBySearch(params);

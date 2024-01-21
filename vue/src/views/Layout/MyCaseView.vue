@@ -4,17 +4,10 @@
       <el-input v-model="params.title" style="width: 200px" placeholder="Please input title"></el-input>
       <el-button type="warning" style="margin: 10px; width: 70px" @click="findBySearch()">search</el-button>
       <el-button type="warning" style="margin: 0px; width: 70px" @click="reset()">clean</el-button>
-      <el-button type="primary" style="margin: 10px; width: 100px" @click="findBySearchC()">Completion</el-button>
-      <el-button type="primary" style="margin: 10px; width: 100px" @click="findBySearchR()">Refusal</el-button>
-      <el-button type="primary" style="margin: 10px; width: 100px" @click="findBySearch()">Acceptance</el-button>
-      <el-button type="primary" style="margin: 10px; width: 100px" @click="findBySearchP()">Pending</el-button>
-      <el-button type="primary" style="margin: 10px; width: 100px" @click="findBySearchAll()">All</el-button>
-      <div>
-        <el-button type="primary" style="margin: 10px; width: 70px" @click="add()">add</el-button>
-        <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
-          <el-button slot="reference" type="danger" style="width: 100px">Batch Delete</el-button>
-        </el-popconfirm>
-      </div>
+      <el-button type="primary" style="margin: 10px; width: 70px" @click="add()"  v-if="user.role === 'ROLE_STAFF'">add</el-button>
+      <el-popconfirm title="Confirm to delete?" @confirm="delBatch()">
+        <el-button slot="reference" type="danger" style="width: 100px"  v-if="user.role === 'ROLE_STAFF'">Batch Delete</el-button>
+      </el-popconfirm>
     </div>
 
     <div class="about">
@@ -23,12 +16,12 @@
         <el-table-column prop="title" label="Title"></el-table-column>
         <el-table-column prop="type" label="Type"></el-table-column>
         <el-table-column prop="cname" label="Client Name"></el-table-column>
-        <el-table-column prop="lawyerName" label="Lawyer Name"></el-table-column>
+        <el-table-column prop="lname" label="Lawyer Name"></el-table-column>
         <el-table-column prop="status" label="Status">
           <template v-slot="scope">
             <div v-if="isShow"> {{scope.row.status}}
               <span >
-                <el-button type= "primary" style="width: 65px; float: right" @click="editStatus(scope.row)">
+                <el-button type= "primary" style="width: 65px; float: right" @click="editStatus(scope.row)" v-if="user.role === 'ROLE_STAFF'">
                   Edit
                 </el-button>
               </span>
@@ -39,7 +32,7 @@
 
         <el-table-column prop="feedback" label="Feedback">
           <template v-slot="scope">
-            <el-button type= "primary" style="width: 65px; margin-left: 10px" @click="editFeedback(scope.row)">Edit</el-button>
+            <el-button type= "primary" style="width: 65px; margin-left: 10px" @click="editFeedback(scope.row)" v-if="user.role === 'ROLE_STAFF'">Edit</el-button>
             <el-button type= "success" style="width: 65px" @click="viewEditor(scope.row.feedback)">
               Detail
             </el-button>
@@ -53,17 +46,17 @@
             </el-button>
           </template>
         </el-table-column>
+
         <el-table-column label="operate">
           <template v-slot="scope">
 
-            <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)">
+            <el-popconfirm title="Confirm to delete?" @confirm="del(scope.row.id)" v-if="user.role === 'ROLE_STAFF'">
               <el-button slot="reference" type="danger" style="width: 65px; margin-left: 10px">Delete</el-button>
             </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
     </div>
-
 
     <div style="margin-top: 5px">
       <el-pagination
@@ -92,10 +85,7 @@
             <el-input v-model="form.cname" autocomplete="off" style="width: 100%"></el-input>
           </el-form-item>
           <el-form-item label="Lawyer Name" label-width="16%" >
-            <el-select v-model="form.lname" placeholder="Select" style="width: 30%">
-              <el-option v-for="item in lawyerObjs" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
-
+            <el-input v-model="form.lname" autocomplete="off" style="width: 100%"></el-input>
           </el-form-item >
           <el-form-item label="status" prop="status" label-width="16%" >
             <el-select  style="width: 30%" v-model="form.status">
@@ -121,15 +111,6 @@
       </el-dialog>
     </div>
 
-
-
-
-    <div>
-    <el-dialog title = "case detail" :visible.sync = "EventD" width = "50%">
-      <div v-html="this.eventObjs.description" class = "w-e-text"></div>
-    </el-dialog>
-    </div>
-
 <!--    修改feedback-->
     <div>
       <el-dialog title="Please input information" :visible.sync="dialogFormFeedback" width="43%">
@@ -146,7 +127,7 @@
         </div>
       </el-dialog>
       <el-dialog title = "case detail" :visible.sync = "editorVisible" width = "50%">
-        <div v-html="this.form.feedback" class = "w-e-text"></div>
+        <div v-html="this.form.content" class = "w-e-text"></div>
       </el-dialog>
     </div>
 
@@ -168,31 +149,6 @@
         </div>
       </el-dialog>
     </div>
-    <!-- addevent -->
-    <div>
-      <el-dialog title="Please input information" :visible.sync="EventAddtable" width="43%">
-        <el-form :model="eventObjs">
-          <el-form-item label="Title" label-width="16%" >
-            <el-input v-model="eventObjs.eventtitle" autocomplete="off" style="width: 100%"></el-input>
-          </el-form-item>
-          <el-form-item label="Description" label-width="16%" >
-            <el-input v-model="eventObjs.description" autocomplete="off" style="width: 100%" type="textarea"></el-input>
-          </el-form-item>
-          <el-form-item label="Dventdate" label-width="16%" >
-            <el-input v-model="eventObjs.eventdate" autocomplete="off" style="width: 100%"></el-input>
-          </el-form-item>
-
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="EventAddtable = false">Cancel</el-button>
-          <el-button type="primary" @click="submitevent()">Confirm</el-button>
-        </div>
-      </el-dialog>
-      <el-dialog title = "case detail" :visible.sync = "editorVisible" width = "50%">
-        <div v-html="this.form.content" class = "w-e-text"></div>
-      </el-dialog>
-    </div>
-
   </div>
 </template>
 
@@ -220,130 +176,37 @@ export default {
       isShow: true,
       params: {
         cname: "",
+        lname: "",
         content: "",
         title: "",
         pageNum: 1,
         pageSize: 5,
         type: "",
         status: "",
-        feedback:"",
-        eventtitle:"",
-        description:"",
-        caseid:"",
-        eventdate:"",
+        feedback:""
       },
       tableData: [],
-      eventObjs: {},
       total: 0,
       dialogFormVisible: false,
       editorVisible :false,
-      EventD : false,
       dialogFormFeedback: false,
       dialogFormStatus: false,
-      EventFormVisible: false,
-      EventForm: false,
-      EventAddtable:false,
-      eventObjs1:[],
       form: {},
       multipleSelection: [],
-      ///gaide
-      lawyerObjs: [],
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
   },
   //页面加载的时候，做一些事情在created里面
   created() {
+    this.params.cname = this.user.name
+    this.findBySearch();
 
-    //gaide
-    this.findBySearchAll();
-    this.findLawyer();
-    //this.cname();
   },
   //定义一些页面上空间触发事件调用的方法
   methods:{
-    findBySearchAll(){
-      request.get("/lawCase/searchAll", {
-        params: this.params
-      }).then(res => {
-        if (res.code === '0') {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    findBySearchC(){
-      request.get("/lawCase/searchCompletion", {
-        params: this.params
-      }).then(res => {
-        if (res.code === '0') {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    findBySearchP(){
-      request.get("/lawCase/search", {
-        params: this.params
-      }).then(res => {
-        if (res.code === '0') {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    findBySearchR(){
-      request.get("/lawCase/searchRefusal", {
-        params: this.params
-      }).then(res => {
-        if (res.code === '0') {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
     findBySearch(){
-      request.get("/lawCase/searchAcceptance", {
-        params: this.params
-      }).then(res => {
-        if (res.code === '0') {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    findBySearchEvent(){
-      request.get("/event/search", {
-        params: this.params
-      }).then(res => {
-        if (res.code === '0') {
-          this.eventObjs = res.data.list
-          this.total = res.data.total
-        } else {
-          this.$message.error(res.msg);
-        }
-      })
-    },
-    findLawyer() {
-      request.get("/lawyer/findAll").then(res => {
-        if (res.code === '0') {
-          this.lawyerObjs = res.data;
-        } else {
-          this.$message.error(res.msg)
-        }
-      })
-    },
-    findBySearch2(){
       request.get("/lawCase/search2", {
+
         params: this.params,
       }).then(res => {
         if (res.code === '0') {
@@ -358,86 +221,26 @@ export default {
       this.form.content = data;
       this.editorVisible = true;
     },
-    viewEventD(data){
-      this.form.description = data;
-      this.EventD = true;
-    },
     reset() {
       this.params = {
-        cname: "",
-        lname: "",
-        content: "",
         title: "",
         pageNum: 1,
         pageSize: 5,
-        type: "",
-        status: "",
-        feedback:""
-
       }
       this.findBySearch();
       },
-    cname(){
-      this.params.cname = this.user.name;
-      this.findBySearch2();
-    },
-
-
     handleSizeChange(pageSize) {
       this.params.pageSize = pageSize;
-      this.findBySearchAll();
+      this.findBySearch();
     },
     handleCurrentChange(pageNum) {
       this.params.pageNum = pageNum;
-      this.findBySearchAll();
-    },
-
-    handleSizeChangeCompletion(pageSize) {
-      this.params.pageSize = pageSize;
-      this.findBySearchC();
-    },
-    handleCurrentChangeCompletion(pageNum) {
-      this.params.pageNum = pageNum;
-      this.findBySearchC();
-    },
-
-    handleSizeChangeRefusal(pageSize) {
-      this.params.pageSize = pageSize;
-      this.findBySearchR();
-    },
-    handleCurrentChangeRefusal(pageNum) {
-      this.params.pageNum = pageNum;
-      this.findBySearchR();
-    },
-
-    handleSizeChangeAcceptance(pageSize) {
-      this.params.pageSize = pageSize;
       this.findBySearch();
     },
-    handleCurrentChangeAcceptance(pageNum) {
-      this.params.pageNum = pageNum;
-      this.findBySearch();
-    },
-
-    handleSizeChangePending(pageSize) {
-      this.params.pageSize = pageSize;
-      this.findBySearchP();
-    },
-    handleCurrentChangePending(pageNum) {
-      this.params.pageNum = pageNum;
-      this.findBySearchP();
-    },
-
-
     add() {
       initWangEditor("");
       this.form = {};
       this.dialogFormVisible = true;
-    },
-    EventAdd() {
-
-      this.eventObjs = {};
-      this.EventAddtable = true;
     },
     submit() {
       this.form.content = editor.txt.html()
@@ -451,13 +254,13 @@ export default {
           this.dialogFormStatus = false;
           this.dialogFormVisible = false,
               this.editorVisible = false,
-          this.findBySearch()
+
+              this.findBySearch()
         }else {
           this.$message.error(res.msg);
         }
       })
     },
-
     submitNoText() {
       request.post("/lawCase",this.form).then(res => {
         if (res.code === '0'){
@@ -469,6 +272,7 @@ export default {
           this.dialogFormStatus = false;
           this.dialogFormVisible = false,
               this.editorVisible = false,
+
           this.findBySearch()
         }else {
           this.$message.error(res.msg);
@@ -504,6 +308,7 @@ export default {
         }
       })
     },
+
     delBatch() {
       if (this.multipleSelection.length ===0){
         this.$message.warning("Please select the option you want to delete!")
